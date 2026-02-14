@@ -12,9 +12,7 @@ function List() {
 
   return (
     <div>
-      <h2 style={{ marginBottom: 24 }}>
-        Produtos
-      </h2>
+      <h2 style={{ marginBottom: 24 }}>Produtos</h2>
 
       <div
         style={{
