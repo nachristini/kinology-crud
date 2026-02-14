@@ -14,7 +14,7 @@ function Create() {
   })
 
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [errorMsg, setErrorMsg] = useState(null)
   const [success, setSuccess] = useState(false)
 
   function handleChange(e) {
@@ -24,27 +24,12 @@ function Create() {
     })
   }
 
-  function validate() {
-    if (!form.title.trim()) return "título é obrigatório"
-    if (!form.price) return "preço é obrigatório"
-    if (!form.description.trim()) return "descrição é obrigatória"
-    if (!form.image.trim()) return "url da imagem é obrigatória"
-    if (!form.category.trim()) return "categoria é obrigatória"
-    return null
-  }
-
   async function handleSubmit(e) {
     e.preventDefault()
 
-    const validationError = validate()
-    if (validationError) {
-      setError(validationError)
-      return
-    }
-
     try {
       setLoading(true)
-      setError(null)
+      setErrorMsg(null)
 
       await api.post("/products", {
         ...form,
@@ -53,89 +38,66 @@ function Create() {
 
       setSuccess(true)
 
-      // volta pra lista depois de 1.2s
       setTimeout(() => {
         navigate("/")
       }, 1200)
 
-    } catch (err) {
-      console.error(err)
-      setError("erro ao criar produto")
+    } catch {
+      // sem variável → linter não chora
+      setErrorMsg("erro ao criar produto")
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div style={{ maxWidth: 520 }}>
-      <h2>Novo Produto</h2>
+    <div className="container">
+      <div className="card" style={{ maxWidth: 560 }}>
 
-      <form onSubmit={handleSubmit}>
+        <h2>Novo Produto</h2>
 
-        <input
-          name="title"
-          placeholder="título"
-          value={form.title}
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit}>
 
-        <input
-          name="price"
-          placeholder="preço"
-          type="number"
-          value={form.price}
-          onChange={handleChange}
-        />
-
-        <input
-          name="image"
-          placeholder="url da imagem"
-          value={form.image}
-          onChange={handleChange}
-        />
-
-        <input
-          name="category"
-          placeholder="categoria"
-          value={form.category}
-          onChange={handleChange}
-        />
-
-        <textarea
-          name="description"
-          placeholder="descrição"
-          rows={4}
-          value={form.description}
-          onChange={handleChange}
-        />
-
-        {/* erro */}
-        {error && (
-          <div style={{
-            background: "#7f1d1d",
-            padding: 10,
-            borderRadius: 8
-          }}>
-            {error}
+          <div>
+            <label>Título</label>
+            <input name="title" value={form.title} onChange={handleChange} />
           </div>
-        )}
 
-        {/* sucesso */}
-        {success && (
-          <div style={{
-            background: "#064e3b",
-            padding: 10,
-            borderRadius: 8
-          }}>
-            produto criado com sucesso ✓
+          <div>
+            <label>Preço</label>
+            <input name="price" type="number" value={form.price} onChange={handleChange} />
           </div>
-        )}
 
-        <button disabled={loading || success}>
-          {loading ? "salvando..." : success ? "criado ✓" : "criar produto"}
-        </button>
+          <div>
+            <label>Imagem URL</label>
+            <input name="image" value={form.image} onChange={handleChange} />
+          </div>
 
-      </form>
+          <div>
+            <label>Categoria</label>
+            <input name="category" value={form.category} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label>Descrição</label>
+            <textarea
+              name="description"
+              rows={4}
+              value={form.description}
+              onChange={handleChange}
+            />
+          </div>
+
+          {errorMsg && <div className="error">{errorMsg}</div>}
+          {success && <div className="success">produto criado ✓</div>}
+
+          <button disabled={loading || success}>
+            {loading ? "salvando..." : "criar produto"}
+          </button>
+
+        </form>
+
+      </div>
     </div>
   )
 }

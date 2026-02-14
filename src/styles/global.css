@@ -4,184 +4,142 @@
   box-sizing: border-box;
 }
 
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* =========================
-   THEME
-========================= */
-
 :root {
-  --bg: #0f172a;
-  --bg-soft: #020617;
-  --border: #1f2937;
+  --bg: #0b1020;
+  --surface: #111831;
+  --surface-2: #0f172a;
+  --border: #1f2a44;
 
-  --text: #e5e7eb;
-  --text-soft: #94a3b8;
+  --text: #e6eaf2;
+  --muted: #9aa4b2;
 
   --primary: #6c63ff;
-  --primary-hover: #5b54e6;
+  --primary-2: #8b84ff;
 
-  --danger: #ef4444;
-  --success: #10b981;
+  --radius: 14px;
 }
-
-/* =========================
-   BASE
-========================= */
 
 body {
-  font-family: Inter, system-ui, -apple-system, Arial, sans-serif;
-  background: var(--bg);
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: radial-gradient(circle at top, #111831, #070b18);
   color: var(--text);
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
 }
 
-/* =========================
-   TYPOGRAPHY
-========================= */
+/* layout */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* typo */
 
 h1, h2, h3 {
   font-weight: 600;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
 }
 
 p {
-  color: var(--text-soft);
+  color: var(--muted);
 }
 
-/* =========================
-   LINKS
-========================= */
+/* card */
 
-a {
-  color: var(--primary);
-  text-decoration: none;
+.card {
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+  transition: 0.25s;
 }
 
-a:hover {
-  opacity: 0.85;
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.45);
 }
 
-/* =========================
-   BUTTON
-========================= */
+/* button */
 
 button {
-  background: var(--primary);
-  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
   border: none;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-weight: 500;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 button:hover {
-  background: var(--primary-hover);
   transform: translateY(-1px);
+  opacity: 0.95;
 }
 
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
 }
 
-/* =========================
-   FORM CONTROLS
-========================= */
+/* inputs */
 
 input,
-textarea,
-select {
+textarea {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  background: var(--bg-soft);
+  background: #0a0f1f;
   color: var(--text);
   font-size: 14px;
 }
 
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-soft);
-}
-
-/* focus acessível */
-
 input:focus,
-textarea:focus,
-select:focus {
+textarea:focus {
   outline: 2px solid var(--primary);
-  outline-offset: 1px;
 }
 
-/* =========================
-   FORM LAYOUT
-========================= */
+label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  display: block;
+}
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
-/* =========================
-   CARD BASE
-========================= */
-
-.card {
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-}
-
-/* =========================
-   FEEDBACK STATES
-========================= */
+/* feedback */
 
 .success {
-  background: #064e3b;
-  border: 1px solid #065f46;
-  color: #d1fae5;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 14px;
+  background: #063a2e;
+  border: 1px solid #0f5c49;
+  padding: 12px;
+  border-radius: 12px;
 }
 
 .error {
-  background: #7f1d1d;
-  border: 1px solid #991b1b;
-  color: #fee2e2;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 14px;
+  background: #3a1010;
+  border: 1px solid #5c1a1a;
+  padding: 12px;
+  border-radius: 12px;
 }
 
-/* =========================
-   SCROLLBAR
-========================= */
+/* image box */
 
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-soft);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1f2937;
-  border-radius: 8px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+.img-box {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

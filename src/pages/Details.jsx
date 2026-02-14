@@ -1,68 +1,119 @@
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { useProduct } from "../hooks/useProduct"
 import Loader from "../components/Loader"
+import { api } from "../api/api"
 
 function Details() {
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const { product, loading, error } = useProduct(id)
 
-  if (!id) return <p>id não informado</p>
+  async function handleDelete() {
+    const ok = confirm("deseja deletar este produto?")
+    if (!ok) return
+
+    try {
+      await api.delete(`/products/${id}`)
+      navigate("/")
+    } catch {
+      alert("erro ao deletar produto")
+    }
+  }
+
   if (loading) return <Loader />
   if (error) return <p>{error}</p>
   if (!product) return <p>produto não encontrado</p>
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-        gap: 32,
-        alignItems: "start"
-      }}
-    >
-      <div
-        style={{
-          background: "white",
-          borderRadius: 12,
-          padding: 24
-        }}
-      >
-        <img
-          src={product.image}
-          alt={product.title}
-          style={{ width: "100%", height: 360, objectFit: "contain" }}
-        />
-      </div>
+    <div className="container">
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <h1>{product.title}</h1>
+      <div className="card">
 
-        <span style={{ opacity: 0.7 }}>
-          {product.category}
-        </span>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: 32
+        }}>
 
-        <strong style={{ fontSize: 22, color: "#6c63ff" }}>
-          R$ {product.price.toFixed(2)}
-        </strong>
+          {/* imagem */}
 
-        <p style={{ lineHeight: "22px" }}>
-          {product.description}
-        </p>
+          <div className="img-box" style={{ height: 360 }}>
+            <img
+              src={product.image}
+              alt={product.title}
+              style={{
+                maxHeight: "100%",
+                objectFit: "contain"
+              }}
+            />
+          </div>
 
-        <div style={{ display: "flex", gap: 12 }}>
-          <Link to={`/edit/${product.id}`}>
-            <button>editar</button>
-          </Link>
+          {/* infos */}
 
-          <button style={{ background: "#ef4444", color: "white" }}>
-            deletar
-          </button>
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 16
+          }}>
 
-          <Link to="/">
-            <button>voltar</button>
-          </Link>
+            <h1 style={{ fontSize: 22 }}>
+              {product.title}
+            </h1>
+
+            <span style={{
+              background: "#1f2a44",
+              padding: "6px 10px",
+              borderRadius: 999,
+              width: "fit-content",
+              fontSize: 13
+            }}>
+              {product.category}
+            </span>
+
+            <strong style={{ fontSize: 24 }}>
+              R$ {Number(product.price).toFixed(2)}
+            </strong>
+
+            <p style={{ lineHeight: "22px" }}>
+              {product.description}
+            </p>
+
+            {/* ações */}
+
+            <div style={{
+              display: "flex",
+              gap: 12,
+              flexWrap: "wrap",
+              marginTop: 10
+            }}>
+
+              <Link to={`/edit/${product.id}`}>
+                <button>
+                  editar
+                </button>
+              </Link>
+
+              <button
+                onClick={handleDelete}
+                style={{
+                  background: "#ef4444"
+                }}
+              >
+                deletar
+              </button>
+
+              <Link to="/">
+                <button>
+                  voltar
+                </button>
+              </Link>
+
+            </div>
+
+          </div>
         </div>
+
       </div>
     </div>
   )

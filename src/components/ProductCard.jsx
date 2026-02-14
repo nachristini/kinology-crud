@@ -2,50 +2,36 @@ import { Link } from "react-router-dom"
 
 function ProductCard({ product }) {
   return (
-    <div
-      style={{
-        background: "#020617",
-        padding: 16,
-        borderRadius: 12,
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        transition: "0.2s",
-        cursor: "pointer"
-      }}
-      onMouseEnter={e => e.currentTarget.style.transform = "translateY(-4px)"}
-      onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
-    >
-      <img
-        src={product.image}
-        alt={product.title}
-        style={{
-          height: 140,
-          objectFit: "contain",
-          background: "white",
-          borderRadius: 8,
-          padding: 8
-        }}
-      />
+    <div className="card card-hover">
 
-      <h3
-        style={{
-          fontSize: 14,
-          lineHeight: "18px",
-          height: 54,
-          overflow: "hidden"
-        }}
-      >
+      <div className="img-box" style={{ height: 160 }}>
+        <img
+          src={product.image}
+          alt={product.title}
+          style={{ maxHeight: "100%", objectFit: "contain" }}
+        />
+      </div>
+
+      <h3 style={{
+        marginTop: 12,
+        fontSize: 15,
+        lineHeight: "20px",
+        height: 40,
+        overflow: "hidden"
+      }}>
         {product.title}
       </h3>
 
-      <strong style={{ color: "#6c63ff" }}>
+      <strong style={{ marginTop: 6 }}>
         R$ {product.price.toFixed(2)}
       </strong>
 
       <Link to={`/item/${product.id}`}>
-        <button>detalhes</button>
+        <button style={{ width: "100%", marginTop: 12 }}>
+          detalhes
+        </button>
       </Link>
+
     </div>
   )
 }

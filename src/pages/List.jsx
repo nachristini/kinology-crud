@@ -11,20 +11,22 @@ function List() {
   if (!products.length) return <Empty />
 
   return (
-    <div>
-      <h2 style={{ marginBottom: 24 }}>Produtos</h2>
+    <div className="container">
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-          gap: 20
-        }}
-      >
+      <h2 style={{ marginBottom: 28 }}>
+        Produtos
+      </h2>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+        gap: 24
+      }}>
         {products.map(p => (
           <ProductCard key={p.id} product={p} />
         ))}
       </div>
+
     </div>
   )
 }

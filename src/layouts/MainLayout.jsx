@@ -3,26 +3,27 @@ import { Link } from "react-router-dom"
 function MainLayout({ children }) {
   return (
     <div>
-      <header
-        style={{
-          padding: 20,
-          background: "#020617",
-          display: "flex",
-          justifyContent: "space-between"
-        }}
-      >
-        <Link to="/" style={{ color: "#6c63ff", fontWeight: "bold" }}>
-          Kinology CRUD
-        </Link>
 
-        <Link to="/create">
-          <button>Novo</button>
-        </Link>
+      <header className="card" style={{ margin: 20 }}>
+        <div className="container" style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <Link to="/">
+            <strong>Kinology CRUD</strong>
+          </Link>
+
+          <Link to="/create">
+            <button>Novo produto</button>
+          </Link>
+        </div>
       </header>
 
-      <main style={{ padding: 24 }}>
+      <main style={{ padding: 20 }}>
         {children}
       </main>
+
     </div>
   )
 }
