@@ -4,8 +4,184 @@
   box-sizing: border-box;
 }
 
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* =========================
+   THEME
+========================= */
+
+:root {
+  --bg: #0f172a;
+  --bg-soft: #020617;
+  --border: #1f2937;
+
+  --text: #e5e7eb;
+  --text-soft: #94a3b8;
+
+  --primary: #6c63ff;
+  --primary-hover: #5b54e6;
+
+  --danger: #ef4444;
+  --success: #10b981;
+}
+
+/* =========================
+   BASE
+========================= */
+
 body {
-  font-family: Inter, Arial, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
+  font-family: Inter, system-ui, -apple-system, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+p {
+  color: var(--text-soft);
+}
+
+/* =========================
+   LINKS
+========================= */
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.85;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================
+   FORM CONTROLS
+========================= */
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 14px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-soft);
+}
+
+/* focus acessível */
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+/* =========================
+   FORM LAYOUT
+========================= */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =========================
+   CARD BASE
+========================= */
+
+.card {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* =========================
+   FEEDBACK STATES
+========================= */
+
+.success {
+  background: #064e3b;
+  border: 1px solid #065f46;
+  color: #d1fae5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.error {
+  background: #7f1d1d;
+  border: 1px solid #991b1b;
+  color: #fee2e2;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
 }
