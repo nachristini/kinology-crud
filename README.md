@@ -68,8 +68,7 @@ O FakeStore implementa um fluxo completo de e-commerce com operações CRUD:
 Além dos requisitos do desafio, o projeto inclui:
 
 - Sistema de favoritos  
-- Carrinho fake  
-- Dark / Light mode  
+- Carrinho fake    
 - Produtos similares automáticos  
 - Layout system padronizado  
 - Skeleton cards de carregamento  
