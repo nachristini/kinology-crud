@@ -1,39 +1,55 @@
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
-function ProductCard({ product }) {
+export default function ProductCard({ product }) {
+  const nav = useNavigate();
+
+  const rate = product.rating?.rate ?? 0;
+  const count = product.rating?.count ?? 0;
+
   return (
-    <div className="card card-hover">
+    <div
+      className="product-card"
+      onClick={() => nav(`/produtos/${product.id}`)}
+    >
+      <span className="product-badge">
+        {product.category}
+      </span>
 
-      <div className="img-box" style={{ height: 160 }}>
-        <img
-          src={product.image}
-          alt={product.title}
-          style={{ maxHeight: "100%", objectFit: "contain" }}
-        />
+      <div className="product-image-wrap">
+
+        {/* overlay */}
+        <div className="product-overlay">
+          <button
+            className="overlay-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              nav(`/produtos/${product.id}`);
+            }}
+          >
+            👁 Ver detalhes
+          </button>
+        </div>
+
+        <img src={product.image} alt={product.title} />
       </div>
 
-      <h3 style={{
-        marginTop: 12,
-        fontSize: 15,
-        lineHeight: "20px",
-        height: 40,
-        overflow: "hidden"
-      }}>
-        {product.title}
-      </h3>
+      <div className="product-info">
+        <h3 className="product-title">{product.title}</h3>
 
-      <strong style={{ marginTop: 6 }}>
-        R$ {product.price.toFixed(2)}
-      </strong>
+        <div className="product-bottom">
+          <strong className="product-price">
+            ${product.price.toFixed(2)}
+          </strong>
 
-      <Link to={`/item/${product.id}`}>
-        <button style={{ width: "100%", marginTop: 12 }}>
-          detalhes
-        </button>
-      </Link>
-
+          <div className="product-rating">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 17.3l-5.2 3 1-5.8-4.2-4.1 5.8-.8L12 4l2.6 5.6 5.8.8-4.2 4.1 1 5.8z" />
+            </svg>
+            <span>{rate.toFixed(1)}</span>
+            <small>({count})</small>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
-
-export default ProductCard

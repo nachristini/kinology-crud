@@ -1,105 +1,122 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { api } from "../api/api"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import MainLayout from "../layouts/MainLayout";
+import { api } from "../api/api";
 
-function Create() {
-  const navigate = useNavigate()
+export default function Create() {
+  const nav = useNavigate();
 
   const [form, setForm] = useState({
     title: "",
-    price: "",
+    price: 0,
+    category: "",
     description: "",
-    image: "",
-    category: ""
-  })
+    image: ""
+  });
 
-  const [loading, setLoading] = useState(false)
-  const [errorMsg, setErrorMsg] = useState(null)
-  const [success, setSuccess] = useState(false)
-
-  function handleChange(e) {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    })
+  function update(k, v) {
+    setForm(s => ({ ...s, [k]: v }));
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-
-    try {
-      setLoading(true)
-      setErrorMsg(null)
-
-      await api.post("/products", {
-        ...form,
-        price: Number(form.price)
-      })
-
-      setSuccess(true)
-
-      setTimeout(() => {
-        navigate("/")
-      }, 1200)
-
-    } catch {
-      // sem variável → linter não chora
-      setErrorMsg("erro ao criar produto")
-    } finally {
-      setLoading(false)
-    }
+  async function submit(e) {
+    e.preventDefault();
+    await api.post("/products", form);
+    nav("/produtos");
   }
 
   return (
-    <div className="container">
-      <div className="card" style={{ maxWidth: 560 }}>
+    <MainLayout>
 
-        <h2>Novo Produto</h2>
+      {/* breadcrumb */}
+      <div className="fs-breadcrumb">
+        <div className="fs-container">
+          <Link to="/produtos">Produtos</Link>
+          <span>›</span>
+          <strong>Novo Produto</strong>
+        </div>
+      </div>
 
-        <form onSubmit={handleSubmit}>
+      {/* header */}
+      <section className="fs-container create-header">
+        <h1>Novo Produto</h1>
+        <p>
+          Preencha as informações abaixo para adicionar um novo produto ao catálogo.
+        </p>
+      </section>
 
-          <div>
-            <label>Título</label>
-            <input name="title" value={form.title} onChange={handleChange} />
-          </div>
+      {/* card */}
+      <section className="fs-container">
+        <form className="create-card" onSubmit={submit}>
 
-          <div>
-            <label>Preço</label>
-            <input name="price" type="number" value={form.price} onChange={handleChange} />
-          </div>
-
-          <div>
-            <label>Imagem URL</label>
-            <input name="image" value={form.image} onChange={handleChange} />
-          </div>
-
-          <div>
-            <label>Categoria</label>
-            <input name="category" value={form.category} onChange={handleChange} />
-          </div>
-
-          <div>
-            <label>Descrição</label>
-            <textarea
-              name="description"
-              rows={4}
-              value={form.description}
-              onChange={handleChange}
+          <label>
+            Título
+            <input
+              placeholder="Nome do produto"
+              value={form.title}
+              onChange={e => update("title", e.target.value)}
             />
+          </label>
+
+          <div className="create-row">
+            <label>
+              Preço ($)
+              <input
+                type="number"
+                value={form.price}
+                onChange={e => update("price", Number(e.target.value))}
+              />
+            </label>
+
+            <label>
+              Categoria
+              <select
+                value={form.category}
+                onChange={e => update("category", e.target.value)}
+              >
+                <option value="">Selecione</option>
+                <option>electronics</option>
+                <option>jewelery</option>
+                <option>men's clothing</option>
+                <option>women's clothing</option>
+              </select>
+            </label>
           </div>
 
-          {errorMsg && <div className="error">{errorMsg}</div>}
-          {success && <div className="success">produto criado ✓</div>}
+          <label>
+            Descrição
+            <textarea
+              rows={4}
+              placeholder="Descreva o produto..."
+              value={form.description}
+              onChange={e => update("description", e.target.value)}
+            />
+          </label>
 
-          <button disabled={loading || success}>
-            {loading ? "salvando..." : "criar produto"}
-          </button>
+          <label>
+            URL da Imagem
+            <input
+              value={form.image}
+              onChange={e => update("image", e.target.value)}
+            />
+          </label>
+
+          <div className="create-actions">
+            <button className="btn-primary" type="submit">
+              Criar Produto
+            </button>
+
+            <button
+              type="button"
+              className="btn-ghost"
+              onClick={() => nav(-1)}
+            >
+              Cancelar
+            </button>
+          </div>
 
         </form>
+      </section>
 
-      </div>
-    </div>
-  )
+    </MainLayout>
+  );
 }
-
-export default Create

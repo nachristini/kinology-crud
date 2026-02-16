@@ -1,26 +1,36 @@
-import { useEffect, useState } from "react"
-import { api } from "../api/api"
+import { useEffect, useState } from "react";
+import { api } from "../api/api";
 
-export function useProducts() {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+export function useProducts(search, category) {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
-      try {
-        const res = await api.get("/products")
-        setProducts(res.data)
-      } catch (error) {
-        console.error(error)
-        setError("erro ao carregar produtos")
-      } finally {
-        setLoading(false)
+      setLoading(true);
+
+      const res = await api.get("/products");
+      let list = res.data;
+
+      if (search) {
+        const s = search.toLowerCase();
+        list = list.filter(p =>
+          p.title.toLowerCase().includes(s) ||
+          p.description.toLowerCase().includes(s) ||
+          p.category.toLowerCase().includes(s)
+        );
       }
+
+      if (category && category !== "all") {
+        list = list.filter(p => p.category === category);
+      }
+
+      setData(list);
+      setLoading(false);
     }
 
-    load()
-  }, [])
+    load();
+  }, [search, category]);
 
-  return { products, loading, error }
+  return { data, loading };
 }

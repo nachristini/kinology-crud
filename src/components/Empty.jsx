@@ -1,15 +1,8 @@
-function Empty() {
+export default function Empty({title,subtitle}){
   return (
-    <div
-      style={{
-        padding: 60,
-        textAlign: "center",
-        opacity: 0.6
-      }}
-    >
-      nenhum item encontrado
+    <div className="empty">
+      <h3>{title}</h3>
+      <p>{subtitle}</p>
     </div>
   )
 }
-
-export default Empty

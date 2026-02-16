@@ -1,16 +1,12 @@
-function Loader() {
+export default function LoaderGrid(){
   return (
-    <div
-      style={{
-        padding: 60,
-        textAlign: "center",
-        fontSize: 18,
-        opacity: 0.7
-      }}
-    >
-      carregando produtos...
+    <div className="grid">
+      {Array.from({length:8}).map((_,i)=>(
+        <div className="card" key={i}>
+          <div className="skeleton skeleton-img"/>
+          <div className="skeleton skeleton-text"/>
+        </div>
+      ))}
     </div>
   )
 }
-
-export default Loader
