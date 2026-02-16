@@ -1,16 +1,215 @@
-# React + Vite
+# 🛍️ FakeStore — CRUD E-commerce em React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação de e-commerce moderna construída em React com foco em UX, UI e arquitetura de front-end. O projeto implementa um fluxo completo de listagem, criação, edição, visualização e exclusão de produtos, com componentes reutilizáveis, design system leve e organização escalável.
 
-Currently, two official plugins are available:
+A proposta foi simular um front de loja real, mas com estrutura limpa o suficiente para servir como base de portfólio e evolução futura.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+# 📦 Visão Geral
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O FakeStore é um CRUD completo de produtos com:
 
-## Expanding the ESLint configuration
+- Listagem em grid responsivo
+- Busca em tempo real
+- Filtros por categoria
+- Página de detalhes
+- Produtos similares
+- Criação e edição de produto
+- Exclusão com feedback visual
+- Skeleton loading
+- Sistema de favoritos
+- Carrinho fake
+- Layout padronizado
+- Design consistente de cards
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tudo isso consumindo API externa + camada de abstração local.
+
+---
+
+# 🧠 Objetivos do Projeto
+
+- Demonstrar domínio de **React moderno**
+- Aplicar **boas práticas de componentização**
+- Criar **UI consistente e reutilizável**
+- Simular fluxo real de e-commerce
+- Trabalhar **estado global** sem libs pesadas
+- Organizar arquitetura pensando em escala
+- Criar base sólida para portfólio técnico
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+## Core
+
+- React 18
+- Vite
+- JavaScript (ES6+)
+- CSS Global estruturado
+
+## Roteamento
+
+- React Router DOM
+
+## Requisições HTTP
+
+- Axios
+
+## Estado Global
+
+- Context API
+- Custom Hooks
+
+## Dados
+
+- FakeStore API
+- MockAPI (para operações CRUD simuladas)
+
+---
+
+# 🧩 Arquitetura de Pastas
+src/
+├── api/
+├── components/
+├── context/
+├── hooks/
+├── layouts/
+├── pages/
+├── styles/
+└── main.jsx
+
+## components/
+
+Componentes reutilizáveis:
+
+- ProductCard
+- Header
+- Footer
+- Hero
+- StatsBar
+- Pagination
+- SearchBar
+- SkeletonCard
+- Loader
+- Button
+
+## pages/
+
+Páginas de rota:
+
+- List — listagem de produtos
+- Details — página de detalhes + similares
+- Create — criação
+- Edit — edição
+
+## context/
+
+Estado global isolado:
+
+- CartContext
+- FavoritesContext
+- ThemeContext
+
+## hooks/
+
+Hooks customizados:
+
+- useProducts
+- useCart
+- useFavorites
+- useTheme
+
+---
+
+# 🎨 Decisões de UI / UX
+
+## Product Cards padronizados
+
+Problema resolvido:
+
+- Títulos com tamanhos diferentes quebravam layout
+- Imagens com proporções irregulares
+
+Soluções aplicadas:
+
+- clamp de 2 linhas no título
+- altura fixa da área de imagem
+- object-fit: contain
+- preço + rating ancorados no rodapé do card
+
+Resultado:
+
+Layout visualmente estável mesmo com dados imprevisíveis.
+
+---
+
+## Footer Minimalista
+
+Redução proposital de ruído visual:
+
+- marca
+- tagline curta
+- copyright
+
+---
+
+## Stats Bar
+
+Cards de benefícios com:
+
+- alinhamento vertical fixo
+- subtítulo ancorado
+- layout consistente
+
+---
+
+## Página de Detalhes
+
+Inclui:
+
+- imagem ampliada
+- categoria
+- descrição
+- ações
+- edição / exclusão
+- seção de **produtos similares** por categoria
+
+---
+
+# 🔎 Funcionalidades Implementadas
+
+## Listagem
+
+- grid responsivo
+- paginação
+- busca em tempo real
+- filtro por categoria
+- skeleton loading
+
+## Detalhes
+
+- visual completo
+- similares automáticos
+- ações de admin
+
+## CRUD
+
+- criar produto
+- editar produto
+- excluir produto
+- feedback visual de exclusão (toast)
+
+## Extras
+
+- favoritos
+- carrinho fake
+- dark/light mode
+
+---
+
+# ⚙️ Como Rodar o Projeto
+
+```bash
+npm install
+npm run dev
