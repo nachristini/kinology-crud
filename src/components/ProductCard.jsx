@@ -9,7 +9,7 @@ export default function ProductCard({ product }) {
   return (
     <div
       className="product-card"
-      onClick={() => nav(`/produtos/${product.id}`)}
+      onClick={() => nav(`/details/${product.id}`)}
     >
       <span className="product-badge">
         {product.category}
@@ -23,7 +23,7 @@ export default function ProductCard({ product }) {
             className="overlay-btn"
             onClick={(e) => {
               e.stopPropagation();
-              nav(`/produtos/${product.id}`);
+              nav(`/details/${product.id}`);
             }}
           >
             👁 Ver detalhes
@@ -34,21 +34,28 @@ export default function ProductCard({ product }) {
       </div>
 
       <div className="product-info">
-        <h3 className="product-title">{product.title}</h3>
 
-        <div className="product-bottom">
-          <strong className="product-price">
+        <h3 className="product-title">
+          {product.title}
+        </h3>
+
+        <div className="product-meta">
+
+          <span className="product-price">
             ${product.price.toFixed(2)}
-          </strong>
+          </span>
 
           <div className="product-rating">
             <svg viewBox="0 0 24 24">
               <path d="M12 17.3l-5.2 3 1-5.8-4.2-4.1 5.8-.8L12 4l2.6 5.6 5.8.8-4.2 4.1 1 5.8z" />
             </svg>
+
             <span>{rate.toFixed(1)}</span>
             <small>({count})</small>
           </div>
+
         </div>
+
       </div>
     </div>
   );

@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
 
 export default function Hero() {
+  function goToProducts(e) {
+    e.preventDefault();
+
+    const el = document.getElementById("produtos");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   return (
     <section className="hero">
       <div className="hero-overlay" />
@@ -22,13 +31,16 @@ export default function Hero() {
         </p>
 
         <div className="hero-actions">
-          <Link to="/produtos" className="hero-btn-primary">
+
+          {/* botão com scroll real */}
+          <a href="#produtos" onClick={goToProducts} className="hero-btn-primary">
             Explorar Produtos →
-          </Link>
+          </a>
 
           <Link to="/create" className="hero-btn-secondary">
             Criar Produto
           </Link>
+
         </div>
       </div>
     </section>

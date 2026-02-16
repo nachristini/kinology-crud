@@ -1,11 +1,59 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  function handleLogoClick() {
+    const isHome =
+      location.pathname === "/" ||
+      location.pathname === "/produtos";
+
+    if (!isHome) {
+      navigate("/produtos");
+      return;
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  // ===== BOTÃO PRODUTOS COM SCROLL =====
+
+  function goProdutos() {
+    const isProdutosPage =
+      location.pathname === "/" ||
+      location.pathname === "/produtos";
+
+    if (!isProdutosPage) {
+      navigate("/produtos");
+
+      setTimeout(() => {
+        document
+          .getElementById("produtos")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 220);
+
+      return;
+    }
+
+    document
+      .getElementById("produtos")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <header className="fs-header">
       <div className="fs-container fs-header-inner">
-        {/* logo */}
-        <div className="fs-logo">
+
+        {/* LOGO */}
+        <div
+          className="fs-logo"
+          onClick={handleLogoClick}
+          style={{ cursor: "pointer" }}
+        >
           <div className="fs-logo-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path
@@ -29,16 +77,24 @@ export default function Header() {
           </div>
         </div>
 
-        {/* direita */}
+        {/* DIREITA */}
         <nav className="fs-nav">
-          <Link to="/produtos" className="fs-link">
+
+          {/* PRODUTOS COM SCROLL */}
+          <button
+            onClick={goProdutos}
+            className="fs-link"
+            style={{ background: "none", border: 0, cursor: "pointer" }}
+          >
             Produtos
-          </Link>
+          </button>
 
           <Link to="/create" className="fs-btn">
             + Novo Produto
           </Link>
+
         </nav>
+
       </div>
     </header>
   );
