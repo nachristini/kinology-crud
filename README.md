@@ -1,74 +1,119 @@
-# 🛍️ FakeStore — CRUD E-commerce em React
+# 🛍️ FakeStore — React CRUD E-commerce
 
-Aplicação de e-commerce moderna construída em React com foco em UX, UI e arquitetura de front-end. O projeto implementa um fluxo completo de listagem, criação, edição, visualização e exclusão de produtos, com componentes reutilizáveis, design system leve e organização escalável.
+Aplicação de e-commerce construída em **React** com foco em arquitetura de front-end, componentização e experiência do usuário. O projeto implementa um **CRUD completo de produtos** consumindo APIs REST externas, com interface consistente, estado global leve e organização escalável de código.
 
-A proposta foi simular um front de loja real, mas com estrutura limpa o suficiente para servir como base de portfólio e evolução futura.
-
----
-
-# 📦 Visão Geral
-
-O FakeStore é um CRUD completo de produtos com:
-
-- Listagem em grid responsivo
-- Busca em tempo real
-- Filtros por categoria
-- Página de detalhes
-- Produtos similares
-- Criação e edição de produto
-- Exclusão com feedback visual
-- Skeleton loading
-- Sistema de favoritos
-- Carrinho fake
-- Layout padronizado
-- Design consistente de cards
-
-Tudo isso consumindo API externa + camada de abstração local.
+A proposta foi ir além de um CRUD básico e simular um front real de loja digital, mantendo estrutura limpa, reutilizável e preparada para evolução futura e uso em portfólio técnico.
 
 ---
 
-# 🧠 Objetivos do Projeto
+# 🚀 Objetivo do Projeto
 
-- Demonstrar domínio de **React moderno**
-- Aplicar **boas práticas de componentização**
-- Criar **UI consistente e reutilizável**
-- Simular fluxo real de e-commerce
-- Trabalhar **estado global** sem libs pesadas
-- Organizar arquitetura pensando em escala
-- Criar base sólida para portfólio técnico
+Este projeto foi desenvolvido para atender ao desafio de **Frontend React CRUD**, demonstrando na prática:
+
+- Consumo de APIs REST
+- Estruturação de aplicação React escalável
+- Separação clara de responsabilidades
+- Componentização reutilizável
+- Gerenciamento de estado sem bibliotecas pesadas
+- Roteamento completo
+- Tratamento de estados de carregamento e feedback visual
+- Decisões de UI/UX consistentes
+
+Mais do que cumprir requisitos, o foco foi entregar organização, previsibilidade visual e qualidade de arquitetura.
 
 ---
 
-# 🛠️ Tecnologias Utilizadas
+# 📦 Visão Geral da Aplicação
+
+O FakeStore implementa um fluxo completo de e-commerce com operações CRUD:
+
+## ✅ Leitura (Read)
+
+- Listagem de produtos em grid responsivo  
+- Busca em tempo real  
+- Filtro por categoria  
+- Paginação  
+- Skeleton loading  
+- Cards padronizados  
+
+## 🔍 Detalhes
+
+- Página de detalhes por rota dinâmica  
+- Visual completo do produto  
+- Produtos similares por categoria  
+- Ações administrativas  
+
+## ➕ Criação (Create)
+
+- Formulário de criação de produto  
+- Integração com API de mock CRUD  
+- Atualização imediata de interface  
+
+## ✏️ Edição (Update)
+
+- Formulário de edição pré-preenchido  
+- Atualização de dados  
+- Sincronização de estado local  
+
+## 🗑️ Exclusão (Delete)
+
+- Remoção de produto  
+- Feedback visual (toast)  
+- Atualização de listagem sem reload  
+
+---
+
+# 🧠 Diferenciais Implementados
+
+Além dos requisitos do desafio, o projeto inclui:
+
+- Sistema de favoritos  
+- Carrinho fake  
+- Dark / Light mode  
+- Produtos similares automáticos  
+- Layout system padronizado  
+- Skeleton cards de carregamento  
+- Hooks customizados  
+- Camada de abstração de API  
+- Contextos separados por domínio  
+- Estrutura preparada para escala  
+
+---
+
+# 🛠️ Stack Tecnológica
 
 ## Core
 
-- React 18
-- Vite
-- JavaScript (ES6+)
-- CSS Global estruturado
+- React 18  
+- Vite  
+- JavaScript ES6+  
+- CSS global estruturado  
 
 ## Roteamento
 
-- React Router DOM
+- React Router DOM  
 
-## Requisições HTTP
+## Comunicação HTTP
 
-- Axios
+- Axios  
 
 ## Estado Global
 
-- Context API
-- Custom Hooks
+- Context API  
+- Custom Hooks  
 
 ## Dados
 
-- FakeStore API
-- MockAPI (para operações CRUD simuladas)
+- FakeStore API — catálogo e listagem  
+- MockAPI — operações CRUD simuladas  
 
 ---
 
 # 🧩 Arquitetura de Pastas
+
+Organização pensada para crescimento e manutenção:
+
+```bash
 src/
 ├── api/
 ├── components/
@@ -78,133 +123,107 @@ src/
 ├── pages/
 ├── styles/
 └── main.jsx
+```
 
-## components/
+---
 
-Componentes reutilizáveis:
+# 🧱 Componentes Reutilizáveis
 
-- ProductCard
-- Header
-- Footer
-- Hero
-- StatsBar
-- Pagination
-- SearchBar
-- SkeletonCard
-- Loader
-- Button
+- ProductCard  
+- Header  
+- Footer  
+- Hero  
+- StatsBar  
+- Pagination  
+- SearchBar  
+- SkeletonCard  
+- Loader  
+- Button  
 
-## pages/
-
-Páginas de rota:
-
-- List — listagem de produtos
-- Details — página de detalhes + similares
-- Create — criação
-- Edit — edição
-
-## context/
-
-Estado global isolado:
-
-- CartContext
-- FavoritesContext
-- ThemeContext
-
-## hooks/
-
-Hooks customizados:
-
-- useProducts
-- useCart
-- useFavorites
-- useTheme
+Todos desenvolvidos com foco em reutilização, previsibilidade visual e baixo acoplamento.
 
 ---
 
 # 🎨 Decisões de UI / UX
 
-## Product Cards padronizados
+## 📦 Padronização de Product Cards
 
-Problema resolvido:
+APIs públicas possuem dados imprevisíveis que quebram layout. Para garantir consistência:
 
-- Títulos com tamanhos diferentes quebravam layout
-- Imagens com proporções irregulares
+- Clamp de 2 linhas no título  
+- Altura fixa da área de imagem  
+- object-fit: contain  
+- Preço e rating ancorados no rodapé  
+- Estrutura de card estável  
 
-Soluções aplicadas:
+Resultado: grid consistente independentemente do conteúdo retornado.
 
-- clamp de 2 linhas no título
-- altura fixa da área de imagem
-- object-fit: contain
-- preço + rating ancorados no rodapé do card
+## 🧱 Layout Consistente
 
-Resultado:
-
-Layout visualmente estável mesmo com dados imprevisíveis.
-
----
-
-## Footer Minimalista
-
-Redução proposital de ruído visual:
-
-- marca
-- tagline curta
-- copyright
+- Sistema de cards reutilizado em múltiplas telas  
+- Espaçamentos padronizados  
+- Footer minimalista com baixo ruído visual  
+- Stats bar com alinhamento fixo  
+- Hierarquia visual clara  
 
 ---
 
-## Stats Bar
-
-Cards de benefícios com:
-
-- alinhamento vertical fixo
-- subtítulo ancorado
-- layout consistente
-
----
-
-## Página de Detalhes
-
-Inclui:
-
-- imagem ampliada
-- categoria
-- descrição
-- ações
-- edição / exclusão
-- seção de **produtos similares** por categoria
-
----
-
-# 🔎 Funcionalidades Implementadas
+# 🔎 Funcionalidades Técnicas
 
 ## Listagem
 
-- grid responsivo
-- paginação
-- busca em tempo real
-- filtro por categoria
-- skeleton loading
+- Grid responsivo  
+- Busca em tempo real  
+- Filtro por categoria  
+- Paginação  
+- Skeleton loading  
 
 ## Detalhes
 
-- visual completo
-- similares automáticos
-- ações de admin
+- Rota dinâmica `/product/:id`  
+- Produtos similares automáticos  
+- Ações de edição e exclusão  
 
 ## CRUD
 
-- criar produto
-- editar produto
-- excluir produto
-- feedback visual de exclusão (toast)
+- Create com formulário validado  
+- Update com dados pré-carregados  
+- Delete com feedback visual  
 
-## Extras
+## Estado Global
 
-- favoritos
-- carrinho fake
-- dark/light mode
+Contexts separados por domínio:
+
+- CartContext  
+- FavoritesContext  
+- ThemeContext  
+
+---
+
+# 🪝 Hooks Customizados
+
+- useProducts  
+- useCart  
+- useFavorites  
+- useTheme  
+
+Hooks encapsulam regras de negócio e reduzem lógica dentro de componentes de UI.
+
+---
+
+# 🧪 Cobertura dos Critérios do Desafio
+
+| Critério | Status |
+|----------|----------|
+CRUD completo | ✅ |
+Consumo de API REST | ✅ |
+Roteamento dinâmico | ✅ |
+Organização de código | ✅ |
+Componentização | ✅ |
+Estado global | ✅ |
+Loading e feedback visual | ✅ |
+UI consistente | ✅ |
+Boas práticas | ✅ |
 
 ---
 
@@ -213,3 +232,6 @@ Inclui:
 ```bash
 npm install
 npm run dev
+```
+
+Servidor local iniciado via Vite.
